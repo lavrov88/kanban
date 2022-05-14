@@ -1,0 +1,26 @@
+.card {
+  position: relative;
+  margin: 10px 0px;
+  padding: 15px 10px;
+
+  font-size: 14px;
+  background-color: #0000001f;
+}
+
+.card_close_btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border: none;
+
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.card_close_btn:hover {
+  background-color: #ffffff2c;
+  color: #fff;
+}

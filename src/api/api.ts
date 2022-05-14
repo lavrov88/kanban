@@ -1,4 +1,4 @@
-import { AxiosErrorObject, CardItemResponse, CreateUserResponse, LoginResponse } from './../types/api-types'
+import { AxiosErrorObject, CardItemResponse, ColumnNumber, CreateUserResponse, LoginResponse } from './../types/api-types'
 import axios, { AxiosError } from "axios"
 
 const apiUrl = 'https://trello.backend.tests.nekidaem.ru/api/v1'
@@ -20,11 +20,29 @@ export const cardsAPI = {
     } catch (e) {
       return apiError(e as AxiosError)
     }
+  },
+
+  async createCard(token: string, row: ColumnNumber, text: string): Promise<CardItemResponse[] | AxiosErrorObject> {
+    try {
+      const response = await axios.post(`${apiUrl}/cards/`, { row, text }, getHeaders(token))
+      return response.data
+    } catch (e) {
+      return apiError(e as AxiosError)
+    }
+  },
+
+  async deleteCard(token: string, cardId: number) {
+    try {
+      const response = await axios.delete(`${apiUrl}/cards/${cardId}/`, getHeaders(token))
+      return response
+    } catch (e) {
+      return apiError(e as AxiosError)
+    }
   }
 }
 
 export const usersAPI = {
-  async create(username: string, email: string, password: string): Promise<CreateUserResponse | AxiosErrorObject> {
+  async createUser(username: string, email: string, password: string): Promise<CreateUserResponse | AxiosErrorObject> {
     try {
       const response = await axios.post(`${apiUrl}/users/create/`, {
         username, email, password

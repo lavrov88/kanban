@@ -1,8 +1,24 @@
+//CARDS
+
 export type CardItemResponse = {
   id: number
-  row: string
-  seq_num: '0' | '1' | '2' | '3'
+  row: ColumnNumber
+  seq_num: number
   text: string
+}
+
+export type ColumnNumber = '0' | '1' | '2' | '3'
+
+
+export type DeleteCardResponse = {
+  status: number
+}
+
+
+// AUTH
+
+export type LoginResponse = {
+  token: string
 }
 
 export type CreateUserResponse = {
@@ -12,9 +28,7 @@ export type CreateUserResponse = {
   token: string
 }
 
-export type LoginResponse = {
-  token: string
-}
+// ERROR
 
 export type AxiosErrorObject = {
   errorName: string

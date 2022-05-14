@@ -1,20 +1,27 @@
 import React from 'react'
-import { cardsAPI, usersAPI } from '../../api/api'
-import { LoginResponse } from '../../types/api-types'
+import Column from './Column/Column'
+import './Board.css'
+import { BoardProps, ColumnColors } from '../../types/props-types'
+import { ColumnNumber } from '../../types/api-types'
 
-const  Board = () => {
-  const loginAndGetCards = async () => {
-    const loginResponse = await usersAPI.login('a_lavrov', 'zxczxctrello')
-    console.log(loginResponse)
-    if (typeof (loginResponse as LoginResponse).token === 'string') {
-      const cards = await cardsAPI.getCards((loginResponse as LoginResponse).token)
-      console.log(cards)
-    }
-  }
-  loginAndGetCards()
+const  Board = ({ cards, dispatch }: BoardProps) => {
+  const columns = [
+    { id: '0', data: cards[0], name: 'On hold', color: 'red' },
+    { id: '1', data: cards[1], name: 'In progress', color: 'blue' },
+    { id: '2', data: cards[2], name: 'Needs review', color: 'yellow' },
+    { id: '3', data: cards[3], name: 'Approved', color: 'green' }
+  ]
 
   return (
-    <div>Board</div>
+    <div className='main'>
+      {columns.map(c => <Column 
+                          key={c.id}
+                          columnId={c.id as ColumnNumber}
+                          data={c.data}
+                          dispatch={dispatch}
+                          name={c.name} 
+                          color={c.color as ColumnColors} />)}
+    </div>
   )
 }
 
