@@ -31,6 +31,17 @@ export const cardsAPI = {
     }
   },
 
+  async updateCard(
+    token: string, id: number, row: ColumnNumber, seq_num: number, text: string
+  ) {
+    try {
+      const response = await axios.patch(`${apiUrl}/cards/${id}/`, { row, seq_num, text }, getHeaders(token))
+      return response
+    } catch (e) {
+      return apiError(e as AxiosError)
+    }
+  },
+
   async deleteCard(token: string, cardId: number) {
     try {
       const response = await axios.delete(`${apiUrl}/cards/${cardId}/`, getHeaders(token))

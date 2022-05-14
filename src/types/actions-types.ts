@@ -1,5 +1,6 @@
 // CARDS ACTIONS
 
+import { CardsState } from "../redux/reducers/cards-reducer"
 import { CardItemResponse, ColumnNumber } from "./api-types"
 
 export type CardsActions = GetCardsAction
@@ -8,6 +9,9 @@ export type CardsActions = GetCardsAction
                          | CloseNewCardMenuAction
                          | EditNewCardTextAction
                          | AddNewCardAction
+                         | DeleteCardAction
+                         | MoveCardAction
+                         | UpdateColumnLocally
 
 export type GetCardsAction = {
   type: 'GET_CARDS'
@@ -51,6 +55,29 @@ export type DeleteCardAction = {
   payload: {
     cardId: number,
     token: string
+  }
+}
+
+export type MoveCardAction = {
+  type: 'MOVE_CARD'
+  payload: { 
+    cardId: number
+    source: CardPlace
+    destination: CardPlace
+    currentCards: CardsState
+  }
+}
+
+export type CardPlace = {
+  column: ColumnNumber
+  index: number
+}
+
+export type UpdateColumnLocally = {
+  type: 'UPDATE_COLUMN_LOCALLY'
+  payload: {
+    column: ColumnNumber,
+    cards: CardItemResponse[]
   }
 }
 

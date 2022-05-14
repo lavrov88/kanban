@@ -1,6 +1,9 @@
-import { AddNewCardAction, CloseNewCardMenuAction, DeleteCardAction, EditNewCardTextAction, OpenNewCardMenuAction } from './../../types/actions-types';
+import { AddNewCardAction, CardPlace, CloseNewCardMenuAction, 
+         DeleteCardAction, EditNewCardTextAction, MoveCardAction, 
+         OpenNewCardMenuAction, UpdateColumnLocally } from './../../types/actions-types';
 import { GetCardsAction, SetCardsAction } from "../../types/actions-types";
 import { CardItemResponse, ColumnNumber } from "../../types/api-types";
+import { CardsState } from '../reducers/cards-reducer';
 
 export const getCards = (token: string): GetCardsAction => ({
   type: 'GET_CARDS',
@@ -35,4 +38,14 @@ export const addNewCard = (column: ColumnNumber, text: string, token: string): A
 export const deleteCard = (cardId: number, token: string): DeleteCardAction => ({
   type: 'DELETE_CARD',
   payload: { cardId, token }
+})
+
+export const moveCard = (cardId: number, source: CardPlace, destination: CardPlace, currentCards: CardsState): MoveCardAction => ({
+  type: 'MOVE_CARD',
+  payload: { cardId, source, destination, currentCards }
+})
+
+export const updateColumnLocally = (column: ColumnNumber, cards: CardItemResponse[]): UpdateColumnLocally => ({
+  type: 'UPDATE_COLUMN_LOCALLY',
+  payload: { column, cards }
 })

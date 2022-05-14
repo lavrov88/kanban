@@ -6,7 +6,6 @@ import store from './redux/store';
 
 const container = document.getElementById('root')!
 const root = createRoot(container)
-console.log(store.getState())
 
 root.render(
     <Provider store={store}>

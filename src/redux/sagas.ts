@@ -1,9 +1,9 @@
 import { setLogInData } from './actions/auth-actions';
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { cardsAPI, usersAPI } from '../api/api'
-import { AddNewCardAction, DeleteCardAction, LogInAction } from '../types/actions-types'
+import { AddNewCardAction, DeleteCardAction, LogInAction, MoveCardAction } from '../types/actions-types'
 import { AxiosErrorObject, CardItemResponse, DeleteCardResponse, LoginResponse } from '../types/api-types'
-import { closeNewCardMenu, editNewCardText, setCards } from './actions/cards-actions';
+import { closeNewCardMenu, editNewCardText, setCards, updateColumnLocally } from './actions/cards-actions';
 
 function* logIn(action: LogInAction) {
   const data: Promise<LoginResponse | AxiosErrorObject> = yield call(
@@ -48,10 +48,32 @@ function* deleteCard(action: DeleteCardAction) {
   }
 }
 
+function* moveCard(action: MoveCardAction) {
+  const { cardId, source, destination, currentCards } = action.payload
+  
+  if (destination.column === source.column) {
+    const columnItems = currentCards[source.column].cards
+    const [ movedCard ] = columnItems.filter(c => c.id === cardId)
+
+    let newColumnItems = [...columnItems]
+    newColumnItems.splice(source.index, 1)
+    newColumnItems.splice(destination.index, 0, movedCard)
+    newColumnItems = [...newColumnItems.map((card, index) => ({ ...card, seq_num: index }))]
+
+    yield call(console.log, (columnItems))
+    yield call(console.log, (movedCard))
+    yield call(console.log, (newColumnItems))
+
+    yield put(updateColumnLocally(source.column, newColumnItems))
+  }
+}
+
 function* mySaga() {
   yield takeEvery('LOG_IN', logIn)
   yield takeEvery('ADD_NEW_CARD', addNewCard)
   yield takeEvery('DELETE_CARD', deleteCard)
+  yield takeEvery('MOVE_CARD', moveCard)
+
 }
 
 export default mySaga

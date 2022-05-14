@@ -41,6 +41,15 @@ export const cardsReducer = (state: CardsState = initialState, action: CardsActi
       },
     }
 
+    case 'UPDATE_COLUMN_LOCALLY':
+      return {
+        ...state,
+        [action.payload.column]: {
+          ...state[action.payload.column],
+          cards: [...action.payload.cards]
+        }
+      }
+
     case 'OPEN_NEW_CARD_MENU':
       return {
         ...state,

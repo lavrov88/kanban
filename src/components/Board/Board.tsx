@@ -1,8 +1,10 @@
 import React from 'react'
 import Column from './Column/Column'
+import { DragDropContext } from 'react-beautiful-dnd'
 import './Board.css'
 import { BoardProps, ColumnColors } from '../../types/props-types'
 import { ColumnNumber } from '../../types/api-types'
+import { moveCard } from '../../redux/actions/cards-actions'
 
 const  Board = ({ cards, dispatch }: BoardProps) => {
   const columns = [
@@ -12,15 +14,39 @@ const  Board = ({ cards, dispatch }: BoardProps) => {
     { id: '3', data: cards[3], name: 'Approved', color: 'green' }
   ]
 
+  const onDragEnd = (result: any) => {
+    console.log(result)
+    const { destination, source, draggableId } = result
+
+    if (!destination) {
+      return
+    }
+    if (destination.droppableId === source.droppableId
+        && destination.index === source.index) {
+      return
+    }
+
+    dispatch(moveCard(
+      +draggableId,
+      { column: source.droppableId, index: source.index },
+      { column: destination.droppableId, index: destination.index },
+      cards
+    ))
+  }
+
   return (
     <div className='main'>
-      {columns.map(c => <Column 
-                          key={c.id}
-                          columnId={c.id as ColumnNumber}
-                          data={c.data}
-                          dispatch={dispatch}
-                          name={c.name} 
-                          color={c.color as ColumnColors} />)}
+      <DragDropContext
+        onDragEnd={result => onDragEnd(result)}
+      >
+        {columns.map(c => <Column 
+                            key={c.id}
+                            columnId={c.id as ColumnNumber}
+                            data={c.data}
+                            dispatch={dispatch}
+                            name={c.name} 
+                            color={c.color as ColumnColors} />)}
+      </DragDropContext>
     </div>
   )
 }

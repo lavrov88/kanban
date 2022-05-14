@@ -6,8 +6,14 @@ export type CardItemResponse = {
   seq_num: number
   text: string
 }
-
 export type ColumnNumber = '0' | '1' | '2' | '3'
+
+export type UpdateCardResponse= {
+  id: number
+  row: ColumnNumber
+  seq_num: number
+  text: string
+}
 
 
 export type DeleteCardResponse = {
