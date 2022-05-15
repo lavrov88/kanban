@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Board cards={cards} dispatch={dispatch} />
+      <Board cards={cards} dispatch={dispatch} token={auth.token as string} />
     </div>
   );
 }

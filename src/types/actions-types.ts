@@ -65,6 +65,7 @@ export type MoveCardAction = {
     source: CardPlace
     destination: CardPlace
     currentCards: CardsState
+    token: string
   }
 }
 

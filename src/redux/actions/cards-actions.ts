@@ -40,9 +40,9 @@ export const deleteCard = (cardId: number, token: string): DeleteCardAction => (
   payload: { cardId, token }
 })
 
-export const moveCard = (cardId: number, source: CardPlace, destination: CardPlace, currentCards: CardsState): MoveCardAction => ({
+export const moveCard = (cardId: number, source: CardPlace, destination: CardPlace, currentCards: CardsState, token: string): MoveCardAction => ({
   type: 'MOVE_CARD',
-  payload: { cardId, source, destination, currentCards }
+  payload: { cardId, source, destination, currentCards, token }
 })
 
 export const updateColumnLocally = (column: ColumnNumber, cards: CardItemResponse[]): UpdateColumnLocally => ({

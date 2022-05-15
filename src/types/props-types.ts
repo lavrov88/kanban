@@ -5,6 +5,7 @@ import { ColumnNumber } from "./api-types"
 export type BoardProps = {
   cards: CardsState
   dispatch: AppDispatch
+  token: string
 }
 
 export type ColumnProps = {

@@ -6,7 +6,7 @@ import { BoardProps, ColumnColors } from '../../types/props-types'
 import { ColumnNumber } from '../../types/api-types'
 import { moveCard } from '../../redux/actions/cards-actions'
 
-const  Board = ({ cards, dispatch }: BoardProps) => {
+const  Board = ({ cards, dispatch, token }: BoardProps) => {
   const columns = [
     { id: '0', data: cards[0], name: 'On hold', color: 'red' },
     { id: '1', data: cards[1], name: 'In progress', color: 'blue' },
@@ -15,7 +15,6 @@ const  Board = ({ cards, dispatch }: BoardProps) => {
   ]
 
   const onDragEnd = (result: any) => {
-    console.log(result)
     const { destination, source, draggableId } = result
 
     if (!destination) {
@@ -30,7 +29,8 @@ const  Board = ({ cards, dispatch }: BoardProps) => {
       +draggableId,
       { column: source.droppableId, index: source.index },
       { column: destination.droppableId, index: destination.index },
-      cards
+      cards,
+      token
     ))
   }
 
