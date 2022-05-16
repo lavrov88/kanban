@@ -4,9 +4,13 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import './Board.css'
 import { BoardProps, ColumnColors } from '../../types/props-types'
 import { ColumnNumber } from '../../types/api-types'
-import { moveCard } from '../../redux/actions/cards-actions'
+import { fetchCards, moveCard } from '../../redux/actions/cards-actions'
 
 const  Board = ({ cards, dispatch, token }: BoardProps) => {
+  React.useEffect(() => {
+    dispatch(fetchCards(token))
+  }, [])
+
   const columns = [
     { id: '0', data: cards[0], name: 'On hold', color: 'red' },
     { id: '1', data: cards[1], name: 'In progress', color: 'blue' },

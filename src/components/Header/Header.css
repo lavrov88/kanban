@@ -1,0 +1,33 @@
+.header {
+  height: 45px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #00000031;
+}
+
+.header_logout {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.header_logout_btn {
+  border: none;
+  padding: 5px 15px;
+  margin-left: 10px;
+  border-radius: 2px;
+
+  background-color: #ffffff3d;
+  color: #d1d1d1;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.header_logout_btn:hover {
+  background-color: #ffffff50;
+  color: #ffffff;
+}

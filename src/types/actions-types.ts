@@ -3,7 +3,7 @@
 import { CardsState } from "../redux/reducers/cards-reducer"
 import { CardItemResponse, ColumnNumber } from "./api-types"
 
-export type CardsActions = GetCardsAction
+export type CardsActions = FetchCardsAction
                          | SetCardsAction
                          | OpenNewCardMenuAction
                          | CloseNewCardMenuAction
@@ -12,9 +12,10 @@ export type CardsActions = GetCardsAction
                          | DeleteCardAction
                          | MoveCardAction
                          | UpdateColumnLocally
+                         | LogOutAction
 
-export type GetCardsAction = {
-  type: 'GET_CARDS'
+export type FetchCardsAction = {
+  type: 'FETCH_CARDS'
   payload: string
 }
 
@@ -85,12 +86,29 @@ export type UpdateColumnLocally = {
 // AUTH ACTIONS
 
 export type AuthActions = LogInAction
+                        | LogOutAction
+                        | RegisterUserAction
                         | SetLogInDataAction
+                        | SetAuthError
+                        | SetRegError
 
 export type LogInAction = {
   type: 'LOG_IN'
   payload: {
     username: string
+    password: string
+  }
+}
+
+export type LogOutAction = {
+  type: 'LOG_OUT'
+}
+
+export type RegisterUserAction = {
+  type: 'REGISTER_USER'
+  payload: {
+    username: string
+    email: string
     password: string
   }
 }
@@ -102,4 +120,14 @@ export type SetLogInDataAction = {
     password: string
     token: string
   }
+}
+
+export type SetAuthError = {
+  type: 'SET_AUTH_ERROR'
+  payload: string | null
+}
+
+export type SetRegError = {
+  type: 'SET_REG_ERROR'
+  payload: string | null
 }

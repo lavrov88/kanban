@@ -27,6 +27,12 @@ export type LoginResponse = {
   token: string
 }
 
+export type CreateUserObj = {
+  username: string
+  email?: string
+  password: string
+}
+
 export type CreateUserResponse = {
   username: string
   email: string

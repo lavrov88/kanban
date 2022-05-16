@@ -1,5 +1,5 @@
-import { AxiosErrorObject, CardItemResponse, ColumnNumber, CreateUserResponse, LoginResponse } from './../types/api-types'
-import axios, { AxiosError } from "axios"
+import { AxiosErrorObject, CardItemResponse, ColumnNumber, CreateUserObj, CreateUserResponse, LoginResponse } from './../types/api-types'
+import axios, { AxiosError, AxiosResponse } from "axios"
 
 const apiUrl = 'https://trello.backend.tests.nekidaem.ru/api/v1'
 const apiError = (e: AxiosError): AxiosErrorObject => ({
@@ -13,12 +13,12 @@ const getHeaders = (token: string) => ({
 })
 
 export const cardsAPI = {
-  async getCards(token: string): Promise<CardItemResponse[] | AxiosErrorObject> {
+  async getCards(token: string): Promise<AxiosResponse | AxiosError> {
     try {
       const response = await axios.get(`${apiUrl}/cards/`, getHeaders(token))
-      return response.data
+      return response
     } catch (e) {
-      return apiError(e as AxiosError)
+      return e as AxiosError
     }
   },
 
@@ -53,25 +53,29 @@ export const cardsAPI = {
 }
 
 export const usersAPI = {
-  async createUser(username: string, email: string, password: string): Promise<CreateUserResponse | AxiosErrorObject> {
+  async createUser(username: string, email: string, password: string): Promise<AxiosResponse | AxiosError> {
+    const dataObj: CreateUserObj = { username, password }
+    if (email) {
+      dataObj.email = email
+    }
+
     try {
-      const response = await axios.post(`${apiUrl}/users/create/`, {
-        username, email, password
-      })
-      return response.data
+      return await axios.post(`${apiUrl}/users/create/`, dataObj)
     } catch (e) {
-      return apiError(e as AxiosError)
+      return e as AxiosError
     }
   },
 
-  async login(username: string, password: string): Promise<LoginResponse | AxiosErrorObject> {
+  async login(username: string, password: string): Promise<AxiosResponse | AxiosError> {
     try {
       const response = await axios.post(`${apiUrl}/users/login/`, {
         username, password
       })
-      return response.data
+      return response
     } catch (e) {
-      return apiError(e as AxiosError)
+      // return apiError(e as AxiosError)
+      console.log(e)
+      return e as AxiosError
     }
   }
 }

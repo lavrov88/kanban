@@ -1,12 +1,12 @@
 import { AddNewCardAction, CardPlace, CloseNewCardMenuAction, 
          DeleteCardAction, EditNewCardTextAction, MoveCardAction, 
          OpenNewCardMenuAction, UpdateColumnLocally } from './../../types/actions-types';
-import { GetCardsAction, SetCardsAction } from "../../types/actions-types";
+import { FetchCardsAction, SetCardsAction } from "../../types/actions-types";
 import { CardItemResponse, ColumnNumber } from "../../types/api-types";
 import { CardsState } from '../reducers/cards-reducer';
 
-export const getCards = (token: string): GetCardsAction => ({
-  type: 'GET_CARDS',
+export const fetchCards = (token: string): FetchCardsAction => ({
+  type: 'FETCH_CARDS',
   payload: token
 })
 

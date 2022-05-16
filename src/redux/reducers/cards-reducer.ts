@@ -77,6 +77,11 @@ export const cardsReducer = (state: CardsState = initialState, action: CardsActi
       }
     }
 
+    case 'LOG_OUT':
+    return {
+      ...initialState
+    }
+
     default:
       return state
   }
