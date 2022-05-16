@@ -2,7 +2,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   max-width: 600px;
@@ -49,6 +49,7 @@
 
 .login_error_message {
   margin-top: 20px;
+  margin-bottom: 10px;
   padding: 5px 10px;
   border-radius: 2px;
   outline: 2px solid #c90000;

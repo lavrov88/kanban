@@ -1,5 +1,6 @@
 .header {
-  height: 45px;
+  position: relative;
+  height: 44px;
   margin: 0 auto;
   margin-bottom: 20px;
   display: flex;
@@ -30,4 +31,97 @@
 .header_logout_btn:hover {
   background-color: #ffffff50;
   color: #ffffff;
+}
+
+
+/* BURGER BUTTON */
+
+.burger_btn_wrapper {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 32px;
+  height: 32px;
+}
+
+.burger_btn_btn {
+  margin: auto;
+  position: relative;
+  width: 90%;
+  height: 90%;
+  border: none;
+
+  background-color: #ffffff23;
+  cursor: pointer;
+}
+
+.burger_btn_btn:hover {
+  background-color: #ffffff46;
+}
+
+.burger_btn_btn:hover::before,
+.burger_btn_btn:hover::after,
+.burger_btn_btn:hover span {
+  background-color: #ffffffbe;
+}
+
+.burger_btn_btn::before,
+.burger_btn_btn::after,
+.burger_btn_btn span {
+  content: '';
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  height: 4px;
+
+  background-color: #ffffff7a;
+}
+
+.burger_btn_btn::before {
+  top: 15%;
+}
+
+.burger_btn_btn span {
+  top: 50%;
+  width: 65%;
+  transform: translateY(-50%);
+}
+
+.burger_btn_btn::after {
+  width: 70%;
+  bottom: 15%;
+}
+
+/* BURGER MENU */
+
+.burger_menu_wrapper {
+  display: none;
+  position: fixed;
+  top: 44px;
+  left: 0;
+  width: 80%;
+  height: 100%;
+  padding: 20px;
+  z-index: 0;
+
+  background-color: #585858;
+}
+
+.burger_menu_wrapper.closed {
+  transform: translateX(-100%);
+}
+
+.burger_menu_logout {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.burger_menu_logout .header_logout_btn {
+  margin: 0;
+  margin-top: 15px;
+  width: 50%;
 }
