@@ -18,7 +18,8 @@ const initialState = {
 export type ColumnObj = typeof emptyColumnObj
 export type CardsState = typeof initialState
 
-export const cardsReducer = (state: CardsState = initialState, action: CardsActions): CardsState => {
+export const cardsReducer = (state: CardsState = initialState, 
+                             action: CardsActions): CardsState => {
   switch (action.type) {
     case 'SET_CARDS':
     return {

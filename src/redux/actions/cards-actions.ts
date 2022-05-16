@@ -25,12 +25,15 @@ export const closeNewCardMenu = (column: ColumnNumber): CloseNewCardMenuAction =
   payload: column
 })
 
-export const editNewCardText = (column: ColumnNumber, text: string): EditNewCardTextAction => ({
+export const editNewCardText = (column: ColumnNumber, 
+                                text: string): EditNewCardTextAction => ({
   type: 'EDIT_NEW_CARD_TEXT',
   payload: { column, text }
 })
 
-export const addNewCard = (column: ColumnNumber, text: string, token: string): AddNewCardAction => ({
+export const addNewCard = (column: ColumnNumber, 
+                           text: string, 
+                           token: string): AddNewCardAction => ({
   type: 'ADD_NEW_CARD',
   payload: { column, text, token }
 })
@@ -40,12 +43,17 @@ export const deleteCard = (cardId: number, token: string): DeleteCardAction => (
   payload: { cardId, token }
 })
 
-export const moveCard = (cardId: number, source: CardPlace, destination: CardPlace, currentCards: CardsState, token: string): MoveCardAction => ({
+export const moveCard = (cardId: number, 
+                         source: CardPlace, 
+                         destination: CardPlace, 
+                         currentCards: CardsState, 
+                         token: string): MoveCardAction => ({
   type: 'MOVE_CARD',
   payload: { cardId, source, destination, currentCards, token }
 })
 
-export const updateColumnLocally = (column: ColumnNumber, cards: CardItemResponse[]): UpdateColumnLocally => ({
+export const updateColumnLocally = (column: ColumnNumber, 
+                                    cards: CardItemResponse[]): UpdateColumnLocally => ({
   type: 'UPDATE_COLUMN_LOCALLY',
   payload: { column, cards }
 })

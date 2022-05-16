@@ -8,24 +8,12 @@ export type CardItemResponse = {
 }
 export type ColumnNumber = '0' | '1' | '2' | '3'
 
-export type UpdateCardResponse= {
-  id: number
-  row: ColumnNumber
-  seq_num: number
-  text: string
-}
-
-
 export type DeleteCardResponse = {
   status: number
 }
 
 
 // AUTH
-
-export type LoginResponse = {
-  token: string
-}
 
 export type CreateUserObj = {
   username: string

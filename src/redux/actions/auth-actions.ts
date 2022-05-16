@@ -9,12 +9,16 @@ export const logOut = (): LogOutAction => ({
   type: 'LOG_OUT'
 })
 
-export const registerUser = (username: string, email: string, password: string): RegisterUserAction => ({
+export const registerUser = (username: string, 
+                             email: string, 
+                             password: string): RegisterUserAction => ({
   type: 'REGISTER_USER',
   payload: { username, email, password }
 })
 
-export const setLogInData = (username: string, password: string, token: string): SetLogInDataAction => ({
+export const setLogInData = (username: string, 
+                             password: string, 
+                             token: string): SetLogInDataAction => ({
   type: 'SET_LOGIN_DATA',
   payload: { username, password, token }
 })

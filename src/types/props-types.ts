@@ -25,6 +25,7 @@ export type ColumnProps = {
 export type ColumnColors = 'red' | 'blue' | 'yellow' | 'green'
 
 export type CardProps = {
+  index: number
   id: number
   text: string
   token: string

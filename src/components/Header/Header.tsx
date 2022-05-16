@@ -19,7 +19,7 @@ const Header = ({ isLogged, currentUsername, dispatch }: HeaderProps) => {
 
   const BurgerButton = () => {
     return (
-      <div className="burger_btn_wrapper">
+      <div className={'burger_btn_wrapper' + (isLogged ? '' : ' hide')}>
         <button onClick={burgerClickHandler} className="burger_btn_btn">
           <span></span>
         </button>

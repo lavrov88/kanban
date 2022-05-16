@@ -3,7 +3,7 @@ import { setLogInData, setAuthError, logOut, setRegError } from './actions/auth-
 import { all, call, put, takeEvery } from 'redux-saga/effects'
 import { cardsAPI, usersAPI } from '../api/api'
 import { AddNewCardAction, DeleteCardAction, FetchCardsAction, LogInAction, MoveCardAction, RegisterUserAction } from '../types/actions-types'
-import { AxiosErrorObject, CardItemResponse, DeleteCardResponse, LoginResponse } from '../types/api-types'
+import { AxiosErrorObject, CardItemResponse, DeleteCardResponse } from '../types/api-types'
 import { closeNewCardMenu, editNewCardText, fetchCards, setCards, updateColumnLocally } from './actions/cards-actions';
 import { AxiosResponse } from 'axios';
 
@@ -83,7 +83,7 @@ function* registerUser(action: RegisterUserAction) {
 // CARDS SAGAS
 
 function* fetchCardsSaga(action: FetchCardsAction) {
-  const data: Promise<AxiosResponse | AxiosError> = yield call(
+  const data: AxiosResponse | AxiosError = yield call(
     cardsAPI.getCards,
     action.payload
   )
@@ -123,7 +123,6 @@ function* moveCard(action: MoveCardAction) {
     newColumnItems = [...newColumnItems.map((c, i) => ({ ...c, seq_num: i }))]
 
     yield put(updateColumnLocally(source.column, newColumnItems))
-
     yield all(newColumnItems.map(c => {
       return (
         call(cardsAPI.updateCard, token, c.id, c.row, c.seq_num, c.text)
@@ -137,14 +136,12 @@ function* moveCard(action: MoveCardAction) {
     const [ movedCard ] = sourceColumnItems.filter(c => c.id === cardId)
 
     const newSourceColumnItems = sourceColumnItems.filter(c => c.id !== cardId)
-
     let newDestinationColumnItems = [...destinationColumnItems]
     newDestinationColumnItems.splice(destination.index, 0, movedCard)
     newDestinationColumnItems = newDestinationColumnItems.map((c, i) => ({ ...c, seq_num: i }))
 
     yield put(updateColumnLocally(source.column, newSourceColumnItems))
     yield put(updateColumnLocally(destination.column, newDestinationColumnItems))
-
     yield all(newDestinationColumnItems.map(c => {
       return (
         call(cardsAPI.updateCard, token, c.id, destination.column, c.seq_num, c.text)

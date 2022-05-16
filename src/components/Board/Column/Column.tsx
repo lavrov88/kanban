@@ -1,5 +1,5 @@
 import React from 'react'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { Droppable } from 'react-beautiful-dnd'
 import { useSelector } from 'react-redux'
 import { addNewCard, closeNewCardMenu, editNewCardText, openNewCardMenu } from '../../../redux/actions/cards-actions'
 import { AppState } from '../../../redux/store'
@@ -38,7 +38,7 @@ function Column({ data, name, color, columnId, dispatch }: ColumnProps) {
         <Droppable droppableId={columnId}>
           {(provided, snapshot) => {
             return (
-              <div
+              <ul
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 style={{
@@ -49,51 +49,21 @@ function Column({ data, name, color, columnId, dispatch }: ColumnProps) {
               >
                 {data.cards.map((c, i) => {
                   return (
-                    <Draggable
+                    <Card 
                       key={c.id}
-                      draggableId={c.id + ''}
                       index={i}
-                    >
-                      {(provided, snapshot) => {
-                        return (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={{ ...provided.draggableProps.style }}
-                          >
-                            <Card 
-                              key={c.id}
-                              id={c.id}
-                              text={c.text}
-                              token={token as string}
-                              dispatch={dispatch}
-                            />
-                          </div>
-                        )
-                      }}
-                    </Draggable>
+                      id={c.id}
+                      text={c.text}
+                      token={token as string}
+                      dispatch={dispatch}
+                    />
                   )
-                // <Card 
-                //   key={c.id}
-                //   id={c.id}
-                //   text={c.text}
-                //   token={token as string}
-                //   dispatch={dispatch}
-                // />
                 })}
                 {provided.placeholder}
-              </div>
+              </ul>
             )
           }}
         </Droppable>
-        {/* {data.cards.map(c => <Card 
-                               key={c.id}
-                               id={c.id}
-                               text={c.text}
-                               token={token as string}
-                               dispatch={dispatch}
-                             />)} */}
       </div>
       <div className="column_footer">
         { data.newCardIsOpened && 

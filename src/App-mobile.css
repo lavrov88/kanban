@@ -1,3 +1,10 @@
+@media (max-width: 900px) {
+  .column {
+    width: 100% !important;
+    max-width: 45% !important;
+  }
+}
+
 @media (max-width: 480px) {
   .header {
     position: fixed !important;
@@ -15,6 +22,10 @@
     display: flex !important;
   }
 
+  .burger_btn_wrapper.hide {
+    display: none !important;
+  }
+
   .burger_menu_wrapper {
     display: block !important;
   }
@@ -25,6 +36,7 @@
 
   .column {
     width: 100% !important;
+    max-width: none !important;
   }
 
   .login_wrapper {

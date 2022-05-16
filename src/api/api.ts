@@ -1,11 +1,7 @@
-import { AxiosErrorObject, CardItemResponse, ColumnNumber, CreateUserObj, CreateUserResponse, LoginResponse } from './../types/api-types'
+import { CardItemResponse, ColumnNumber, CreateUserObj } from './../types/api-types'
 import axios, { AxiosError, AxiosResponse } from "axios"
 
 const apiUrl = 'https://trello.backend.tests.nekidaem.ru/api/v1'
-const apiError = (e: AxiosError): AxiosErrorObject => ({
-  errorName: e.name,
-  errorMessage: e.message
-})
 const getHeaders = (token: string) => ({
   headers: {
     Authorization: `JWT ${token}`
@@ -15,45 +11,48 @@ const getHeaders = (token: string) => ({
 export const cardsAPI = {
   async getCards(token: string): Promise<AxiosResponse | AxiosError> {
     try {
-      const response = await axios.get(`${apiUrl}/cards/`, getHeaders(token))
-      return response
+      return await axios.get(`${apiUrl}/cards/`, getHeaders(token))
     } catch (e) {
       return e as AxiosError
     }
   },
 
-  async createCard(token: string, row: ColumnNumber, text: string): Promise<CardItemResponse[] | AxiosErrorObject> {
+  async createCard(token: string, 
+                   row: ColumnNumber, 
+                   text: string): Promise<CardItemResponse[] | AxiosError> {
     try {
       const response = await axios.post(`${apiUrl}/cards/`, { row, text }, getHeaders(token))
       return response.data
     } catch (e) {
-      return apiError(e as AxiosError)
+      return e as AxiosError
     }
   },
 
   async updateCard(
     token: string, id: number, row: ColumnNumber, seq_num: number, text: string
-  ) {
+  ): Promise<AxiosResponse | AxiosError> {
     try {
-      const response = await axios.patch(`${apiUrl}/cards/${id}/`, { row, seq_num, text }, getHeaders(token))
-      return response
+      return await axios.patch(`${apiUrl}/cards/${id}/`,
+                               { row, seq_num, text },
+                               getHeaders(token))
     } catch (e) {
-      return apiError(e as AxiosError)
+      return e as AxiosError
     }
   },
 
-  async deleteCard(token: string, cardId: number) {
+  async deleteCard(token: string, cardId: number): Promise<AxiosResponse | AxiosError> {
     try {
-      const response = await axios.delete(`${apiUrl}/cards/${cardId}/`, getHeaders(token))
-      return response
+      return await axios.delete(`${apiUrl}/cards/${cardId}/`, getHeaders(token))
     } catch (e) {
-      return apiError(e as AxiosError)
+      return e as AxiosError
     }
   }
 }
 
 export const usersAPI = {
-  async createUser(username: string, email: string, password: string): Promise<AxiosResponse | AxiosError> {
+  async createUser(username: string, 
+                   email: string, 
+                   password: string): Promise<AxiosResponse | AxiosError> {
     const dataObj: CreateUserObj = { username, password }
     if (email) {
       dataObj.email = email
@@ -73,7 +72,6 @@ export const usersAPI = {
       })
       return response
     } catch (e) {
-      // return apiError(e as AxiosError)
       console.log(e)
       return e as AxiosError
     }

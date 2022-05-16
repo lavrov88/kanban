@@ -53,7 +53,13 @@ const RegisterForm = ({ regError, dispatch }: RegFormProps) => {
   const handleReg = (e: any) => {
     e.preventDefault()
     
-    if (password !== passwordConfirm) {
+    if (!username) {
+      dispatch(setRegError('Не заполнено имя пользователя.'))
+    } else if (!password) {
+      dispatch(setRegError('Не заполнен пароль.'))
+    } else if (password.length < 8) {
+      dispatch(setRegError('Пароль слишком короткий. Он должен быть не короче 8 символов.'))
+    } else if (password !== passwordConfirm) {
       dispatch(setRegError('Введенные пароли не совпадают.'))
     } else {
       console.log(username, email, password)

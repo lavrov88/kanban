@@ -21,7 +21,6 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const sagaMiddleware = createSagaMiddleware()
 
 const store = configureStore({
-  // reducer: rootReducer,
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
@@ -30,11 +29,11 @@ const store = configureStore({
   }).concat(sagaMiddleware),
   devTools: true
 })
-sagaMiddleware.run(watcherSaga)
 
-export const persistor = persistStore(store)
+sagaMiddleware.run(watcherSaga)
 
 export type AppState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
+export const persistor = persistStore(store)
 export default store
